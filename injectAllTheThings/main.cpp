@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <stdio.h>
+#include <versionhelpers.h>
 #include "fheaders.h"
 #include "auxiliary.h"
 
@@ -9,7 +10,6 @@ DWORD wmain(int argc, wchar_t* argv[])
 	wchar_t *strProcName;
 	DWORD dwProcessId = 0;
 	DWORD dwTechnique = 0;
-	DWORD v = checkOS();
 
 	if (argc != 5)
 	{
@@ -32,7 +32,7 @@ DWORD wmain(int argc, wchar_t* argv[])
 			return(1);
 		}
 
-                SetSePrivilege();
+		SetSePrivilege();
 		
 		switch (_wtoi(argv[2]))
 		{
@@ -40,10 +40,7 @@ DWORD wmain(int argc, wchar_t* argv[])
 			demoCreateRemoteThreadW(pszLibFile, dwProcessId);
 			break;
 		case 2:
-			if (v < 2)
-				wprintf(TEXT("[-] NtCreateThread() is only available in Windows Vista and up."));
-			else
-				demoNtCreateThreadEx(pszLibFile, dwProcessId);
+			demoNtCreateThreadEx(pszLibFile, dwProcessId);
 			break;
 		case 3:
 			demoQueueUserAPC(pszLibFile, dwProcessId);
@@ -73,3 +70,4 @@ DWORD wmain(int argc, wchar_t* argv[])
 
 	return(0);
 }
+

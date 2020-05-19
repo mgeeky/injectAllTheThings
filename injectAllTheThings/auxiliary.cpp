@@ -40,42 +40,6 @@ DWORD findPidByName(wchar_t * pname)
 	return 0;
 }
 
-DWORD checkOS() 
-{
-	OSVERSIONINFO os_version;
-
-	os_version.dwOSVersionInfoSize = sizeof(os_version);
-
-	if (GetVersionEx(&os_version)) 
-	{
-		if (os_version.dwMajorVersion == 5) 
-		{
-#ifdef _DEBUG
-			wprintf(TEXT("[+] OS version: Windows XP\n"));
-#endif
-			return(1);
-		}
-		if (os_version.dwMajorVersion == 6 && os_version.dwMinorVersion == 0) 
-		{
-#ifdef _DEBUG
-			wprintf(TEXT("[+] OS version: Windows Vista\n"));
-#endif
-			return(2);
-		}
-		if (os_version.dwMajorVersion == 6 && os_version.dwMinorVersion == 1)
-		{
-#ifdef _DEBUG
-			wprintf(TEXT("[+] OS version: Windows 7\n"));
-#endif
-			return(3);
-		}
-	}
-	else
-		printf("[-] OS version detect failed.\n");
-
-	return(0);
-}
-
 DWORD getThreadID(DWORD pid)
 {
 	HANDLE h = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
@@ -139,3 +103,4 @@ BOOL SetSePrivilege()
 
 	return TRUE;
 }
+
